@@ -5,12 +5,7 @@ $(function() {
     // website element
     var website = {
             body: $('html,body'),
-            window: $(window),
-            fade: $('.fade'),
-            fCont: $('#food-cont'),
-            sCont: $('#shltr-cont'),
-            cCont: $('#clth-cont'),
-            toTop: $('.to-top')
+            window: $(window)
         },
 
         // window size
@@ -24,21 +19,19 @@ $(function() {
         u = 0;
 
     var eventCtrl = {
-        scrlOff: function() {
+        on: function() {
+            website.window.off('mousewheel touchmove');
+        },
+        off: function() {
             website.window.on('mousewheel touchmove', function(e) {
                 e.preventDefault();
             });
-        },
-
-        scrlOn: function() {
-            website.window.off('mousewheel touchmove');
         }
     };
 
     var format = function() {
 
         // 60fps > 24fps
-
         var fps = 24 / 1000,
             slug = {
                 resize: false,
@@ -56,18 +49,16 @@ $(function() {
         var render = function() {
 
             if (slug.resize) {
-
                 slug.resize = false;
                 winW = website.window.width();
                 winH = website.window.height();
                 trigger = {
                     show: winH * 0.8,
-                    hide: winH * 0.05
+                    hide: winH * 0.2
                 };
             }
 
             if (slug.scroll) {
-
                 slug.scroll = false;
                 y = website.window.scrollTop();
 
@@ -77,18 +68,11 @@ $(function() {
 
         var scrlAct = function() {
 
-            website.fade.each(function() {
+            website.hoge.each(function() {
                 var targetPos = $(this).offset().top;
                 if (y + trigger.show >= targetPos) {
-                    $(this).removeClass('is-btm');
                 }
             });
-
-            if (100 < y) {
-                website.toTop.addClass('is-in');
-            } else {
-                website.toTop.removeClass('is-in');
-            }
 
         };
 
